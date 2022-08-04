@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-01 14:19:01
  * @LastEditors: heye
- * @LastEditTime: 2022-08-04 11:22:55
+ * @LastEditTime: 2022-08-04 15:23:02
  * @FilePath: \REALTIME-CHAT-APP\public\src\pages\Register.jsx
  * @Description:
  *
@@ -49,12 +49,12 @@ function Register() {
 				password,
 			})
 
-			if (data.data.status == false) {
+			if (data.data.status === false) {
 				toast.error(data.data.msg, toastOptions)
 			}
-			if (data.data.status == true) {
+			if (data.data.status === true) {
 				localStorage.setItem('chat-app-user', JSON.stringify(data.data.user))
-				navigate('/Chat')
+				navigate('/SetAvatar')
 			}
 		}
 	}
@@ -63,10 +63,10 @@ function Register() {
 		if (password !== comfirmPassword) {
 			toast.error('password should be same with comfirm password.', toastOptions)
 			return false
-		} else if (username == '') {
+		} else if (username === '') {
 			toast.error('username is required', toastOptions)
 			return false
-		} else if (email == '') {
+		} else if (email === '') {
 			toast.error('email is required', toastOptions)
 			return false
 		}

@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-01 14:18:45
  * @LastEditors: heye
- * @LastEditTime: 2022-08-04 13:33:04
+ * @LastEditTime: 2022-08-04 16:22:06
  * @FilePath: \REALTIME-CHAT-APP\public\src\pages\Login.jsx
  * @Description: Login
  *
@@ -12,7 +12,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import axios from 'axios'
 import { LoginRoute } from '../utils/APIRoutes'
 const toastOptions = {
@@ -38,21 +37,21 @@ function Login() {
 				email,
 				password,
 			})
-			if (data.data.status == false) {
+			if (data.data.status === false) {
 				toast.error(data.data.msg, toastOptions)
 			}
-			if (data.data.status == true) {
+			if (data.data.status === true) {
 				localStorage.setItem('chat-app-user', JSON.stringify(data.data.user))
-				navigate('/Chat')
+				navigate('/SetAvatar')
 			}
 		}
 	}
 	const handleValidation = () => {
 		const { email, password } = values
-		if (password == '') {
+		if (password === '') {
 			toast.error('password is required.', toastOptions)
 			return false
-		} else if (email == '') {
+		} else if (email === '') {
 			toast.error('email is required', toastOptions)
 			return false
 		}
