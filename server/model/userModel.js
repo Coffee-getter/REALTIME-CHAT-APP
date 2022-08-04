@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-01 17:52:41
  * @LastEditors: heye
- * @LastEditTime: 2022-08-04 11:17:40
+ * @LastEditTime: 2022-08-04 15:17:39
  * @FilePath: \REALTIME-CHAT-APP\server\model\userModel.js
  * @Description:
  *
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-	avaterImage: {
+	avatarImage: {
 		type: String,
 		default: '',
 	},

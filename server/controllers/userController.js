@@ -32,16 +32,37 @@ module.exports.register = async (req, res, next) => {
 	}
 }
 module.exports.login = async (req, res, next) => {
-	const { email, password } = req.body
-	const passwordObj = await User.findOne({ email }, { password: 1, _id: 0 })
-	const savedPassword = passwordObj ? passwordObj.password : ''
-	const isPasswordSame = bcrypt.compare(savedPassword, password)
-	if (!passwordObj) {
-		return res.json({ status: false, msg: '账户不存在' })
+	try {
+		const { email, password } = req.body
+		const passwordObj = await User.findOne({ email }, { password: 1, _id: 0 })
+		const savedPassword = passwordObj ? passwordObj.password : ''
+		const isPasswordSame = bcrypt.compare(savedPassword, password)
+		if (!passwordObj) {
+			return res.json({ status: false, msg: '账户不存在' })
+		} else if (!isPasswordSame) {
+			return res.json({ status: false, msg: '密码错误' })
+		}
+		const user = await User.findOne({ email }, { password: 0 })
+		return res.json({ status: true, user })
+	} catch (ex) {
+		next(ex)
 	}
-	if (!isPasswordSame) {
-		return res.json({ status: false, msg: '密码错误' })
+}
+
+module.exports.setAvatar = async (req, res, next) => {
+	try {
+		const id = req.params.id
+		const avatarImage = req.body.image
+		const userData = await User.findByIdAndUpdate(id, {
+			isAvatarImageSet: true,
+			avatarImage,
+		})
+		return res.json({
+			isSet: userData.isAvatarImageSet,
+			avatarImage: userData.avatarImage,
+			status: true,
+		})
+	} catch (ex) {
+		next(ex)
 	}
-	const user = await User.findOne({ email }, { password: 0, _id: 0 })
-	return res.json({ status: true, msg: '账户密码正确', user })
 }
