@@ -66,3 +66,16 @@ module.exports.setAvatar = async (req, res, next) => {
 		next(ex)
 	}
 }
+module.exports.getAllUsersRoute = async (req, res, next) => {
+	try {
+		const users = await User.find({ id: { $ne: req.params.id } }).select([
+			'email',
+			'username',
+			'avatarImage',
+			'_id',
+		])
+		return res.json(users)
+	} catch (ex) {
+		next(ex)
+	}
+}
