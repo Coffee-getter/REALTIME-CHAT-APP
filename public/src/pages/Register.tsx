@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-01 14:19:01
  * @LastEditors: heye
- * @LastEditTime: 2022-08-04 15:23:02
+ * @LastEditTime: 2022-08-11 17:00:41
  * @FilePath: \REALTIME-CHAT-APP\public\src\pages\Register.jsx
  * @Description:
  *
@@ -23,7 +23,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import axios from 'axios'
-import { RegisterRoute } from '../utils/APIRoutes'
+import { RegisterRoute } from '../utils/APIRoutes.tsx'
 const toastOptions = {
 	theme: 'dark',
 	draggable: true,

@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-01 14:19:14
  * @LastEditors: heye
- * @LastEditTime: 2022-08-11 15:20:35
+ * @LastEditTime: 2022-08-11 16:59:18
  * @Description:
  */
 
@@ -29,6 +29,6 @@ function Chat() {
 }
 
 const Container = styled.div`
-	background: '
+	background: #131324;
 `
 export default Chat

@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
-import { LoginRoute } from '../utils/APIRoutes'
+import { LoginRoute } from '../utils/APIRoutes.tsx'
 const toastOptions = {
 	theme: 'dark',
 	draggable: true,

@@ -2,7 +2,7 @@
  * @Author: heye
  * @Date: 2022-08-04 13:54:14
  * @LastEditors: heye
- * @LastEditTime: 2022-08-04 16:55:38
+ * @LastEditTime: 2022-08-11 17:07:12
  * @FilePath: \REALTIME-CHAT-APP\public\src\pages\setAvatar.jsx
  * @Description:
  *
@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { Buffer } from 'buffer'
-import { setAvatarRoute } from '../utils/APIRoutes'
+import { setAvatarRoute } from '../utils/APIRoutes.tsx'
 import styled from 'styled-components'
 import octopusAnimation from '../assets/json/octopus.json'
 import Lottie from 'lottie-react'
