@@ -2,23 +2,23 @@
  * @Author: heye
  * @Date: 2022-08-04 13:54:14
  * @LastEditors: heye
- * @LastEditTime: 2022-08-11 17:07:12
+ * @LastEditTime: 2022-08-12 13:47:48
  * @FilePath: \REALTIME-CHAT-APP\public\src\pages\setAvatar.jsx
  * @Description:
  *
  */
 import React, { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, ToastOptions, toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { Buffer } from 'buffer'
-import { setAvatarRoute } from '../utils/APIRoutes.tsx'
+import { setAvatarRoute } from '../utils/APIRoutes'
 import styled from 'styled-components'
 import octopusAnimation from '../assets/json/octopus.json'
 import Lottie from 'lottie-react'
 import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css'
 
-const toastOptions = {
+const toastOptions: any = {
 	theme: 'dark',
 	draggable: true,
 	position: 'top-right',
@@ -52,16 +52,25 @@ export default function SetAvatar() {
 			toast.warn('please select one at least', toastOptions)
 			return false
 		}
-		const user = JSON.parse(localStorage.getItem('chat-app-user'))
+		let user = JSON.parse(localStorage.getItem('chat-app-user'))
 		const data = await axios.post(`${setAvatarRoute}/${user._id}`, {
 			avatarImage: avatars[selectedAvatar],
 		})
-		if (data.data.isSet) {
-			user.isAvatarImageSet = data.data.isSet
-			user.avatarImage = data.data.avatarImage
-			localStorage.setItem('chat-app-user', user)
-			navigate('/Chat')
+		if (data.status !== 200) {
+			toast.warn(`连接失败：${data.statusText}`, toastOptions)
+			return
 		}
+		if (data.data.isSet == false || data.data.avatarImage == '') {
+			toast.warn('头像设置失败请重试', toastOptions)
+			return
+		}
+		user = {
+			...user,
+			isAvatarImageSet: data.data.isSet,
+			avatarImage: data.data.avatarImage,
+		}
+		localStorage.setItem('chat-app-user', JSON.stringify(user))
+		navigate('/Chat')
 	}
 	return (
 		<>
