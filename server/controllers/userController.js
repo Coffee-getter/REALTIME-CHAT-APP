@@ -1,3 +1,10 @@
+/*
+ * @Author: heye
+ * @Date: 2022-08-01 17:52:24
+ * @LastEditors: heye
+ * @LastEditTime: 2022-08-12 13:35:25
+ * @Description:
+ */
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 
@@ -26,7 +33,7 @@ module.exports.register = async (req, res, next) => {
 			...user,
 			password: undefined,
 		}
-		return res.json({ status: true, user2 })
+		return res.json({ status: true, user: user2 })
 	} catch (ex) {
 		next(ex)
 	}
@@ -34,7 +41,7 @@ module.exports.register = async (req, res, next) => {
 module.exports.login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body
-		const passwordObj = await User.findOne({ email }, { password: 1, _id: 0 })
+		const passwordObj = await User.findOne({ email }, { password: 1 })
 		const savedPassword = passwordObj ? passwordObj.password : ''
 		const isPasswordSame = bcrypt.compare(savedPassword, password)
 		if (!passwordObj) {
@@ -52,7 +59,7 @@ module.exports.login = async (req, res, next) => {
 module.exports.setAvatar = async (req, res, next) => {
 	try {
 		const id = req.params.id
-		const avatarImage = req.body.image
+		const avatarImage = req.body.avatarImage
 		const userData = await User.findByIdAndUpdate(id, {
 			isAvatarImageSet: true,
 			avatarImage,
@@ -66,9 +73,9 @@ module.exports.setAvatar = async (req, res, next) => {
 		next(ex)
 	}
 }
-module.exports.getAllUsersRoute = async (req, res, next) => {
+module.exports.getAllChatList = async (req, res, next) => {
 	try {
-		const users = await User.find({ id: { $ne: req.params.id } }).select([
+		const users = await User.find({ id: { $ne: req.body.user._id } }).select([
 			'email',
 			'username',
 			'avatarImage',
